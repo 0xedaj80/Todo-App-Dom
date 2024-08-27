@@ -1,0 +1,70 @@
+<html>
+ <head>
+
+ </head>
+<body>
+  <h1>Todo-App</h1>
+ <input type="text" placeholder="add some task">
+ <button onclick="addTodo()">add</button>
+ <button onclick="deletelast()">delete last</button>
+ <div id="todo1"></div>
+</body>
+
+ <script> 
+   let todos = []
+   
+   let ctr = 1;
+   function addTodo(){
+   
+     todos.push({
+        id:ctr, 
+        title:document.querySelector("input").value,
+     }) 
+     ctr = ctr+1;
+     render(); 
+   } 
+   
+   
+    function deletelast(){ 
+         todos.pop();
+         render();
+    }
+
+    function deletetodo(ind){
+         todos.splice(ind ,1); 
+         render();
+    }
+
+   function render(){ 
+    document.querySelector("#todo1").innerHTML = "";
+    for(let i =0; i<todos.length; ++i){ 
+       let tod = todos[i];
+        const ele = todoComponent(tod, i); 
+         
+       document.querySelector("#todo1").appendChild(ele);  
+       }
+    
+   } 
+
+    
+
+   function todoComponent(tod, idEl){ 
+       const spanEl = document.createElement("span");
+       const buttonEl = document.createElement("button");
+       const divEl = document.createElement("div");
+    
+    
+       buttonEl.setAttribute("onclick", "deletetodo("+idEl+")") 
+       spanEl.innerHTML = tod.title;
+       buttonEl.innerHTML = "delete";
+    
+       divEl.appendChild(spanEl);
+       divEl.appendChild(buttonEl); 
+       return divEl;        
+   }
+
+
+
+ </script>
+
+</html>
